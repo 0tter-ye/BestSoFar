@@ -43,7 +43,21 @@ Closes "Sell" positions on bullish reversals if profitable.
 Logging:
 Added logging for dynamic profit targets and trend reversal events to monitor the bot's behavior.
 
+When It Closes Positions
+The bot now closes positions under these new conditions in addition to the existing ones:
 
+New Conditions
+Buy at Resistance:
+Trigger: Current price is within 0.5% of a resistance level AND (imbalance < -0.2 OR profit > 0%).
+Example: Price = 60,000, resistance = 60,200 (0.33% away), imbalance = -0.3 → Closes "Buy".
+Purpose: Exits "Buy" at a ceiling where selling pressure (asks) or profit-taking is likely.
+Sell at Support:
+Trigger: Current price is within 0.5% of a support level AND (imbalance > 0.2 OR profit > 0%).
+Example: Price = 58,000, support = 58,200 (0.34% away), imbalance = 0.25 → Closes "Sell".
+Purpose: Exits "Sell" at a floor where buying pressure (bids) or profit-taking is likely.
+Interaction with Existing Conditions
+These new conditions take priority (checked first) to ensure exits at key levels.
+If not triggered, the bot falls back to existing logic (e.g., dynamic profit target, RSI, trailing stop).
 
 
 
